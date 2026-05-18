@@ -1,0 +1,51 @@
+customer_id,phone_number,state,city,age,gender,tenure_months,plan_type,connection_type,monthly_charge_inr,avg_data_usage_gb,avg_call_minutes,support_tickets_90d,complaints_90d,network_issue_count_90d,late_payment_count_6m,last_recharge_days_ago,payment_method,autopay_enabled,whatsapp_opt_in,contract_type,competitor_offer_seen,satisfaction_score,nps_score,churned,campaign_status,last_offer_sent,response_status
+CUST0001,919876540001,Maharashtra,Mumbai,28,Female,14,Prepaid,4G,299,42.5,620,1,0,2,0,6,UPI,No,Yes,Monthly,No,8,34,No,Not Sent,,No Response
+CUST0002,919876540002,Karnataka,Bengaluru,35,Male,9,Postpaid,5G,799,88.2,410,3,2,8,1,2,Credit Card,Yes,Yes,Monthly,Yes,4,-22,Yes,Sent,20% bill discount,Callback Requested
+CUST0003,919876540003,Delhi,New Delhi,42,Male,36,Postpaid,4G,999,65.1,980,0,0,1,0,0,Net Banking,Yes,Yes,Annual,No,9,48,No,Not Sent,,No Response
+CUST0004,919876540004,Tamil Nadu,Chennai,24,Female,5,Prepaid,4G,199,18.4,240,2,1,5,0,11,UPI,No,Yes,Monthly,Yes,5,-5,Yes,Sent,Extra 20GB data,Accepted
+CUST0005,919876540005,Telangana,Hyderabad,31,Male,18,Prepaid,5G,399,71.0,530,1,1,3,0,4,Wallet,No,Yes,Monthly,No,7,18,No,Sent,Extra 10GB data,Accepted
+CUST0006,919876540006,Gujarat,Ahmedabad,47,Female,44,Postpaid,4G,699,38.9,850,0,0,0,0,1,Debit Card,Yes,No,Annual,No,9,52,No,Not Sent,,No Response
+CUST0007,919876540007,West Bengal,Kolkata,29,Male,7,Prepaid,4G,249,22.0,310,4,3,9,2,15,UPI,No,Yes,Monthly,Yes,3,-41,Yes,Sent,Free 1 month plan,Rejected
+CUST0008,919876540008,Rajasthan,Jaipur,52,Male,27,Postpaid,4G,599,25.3,760,1,0,2,0,0,Net Banking,Yes,Yes,Annual,No,8,31,No,Not Sent,,No Response
+CUST0009,919876540009,Uttar Pradesh,Lucknow,33,Female,11,Prepaid,4G,299,30.8,460,2,2,6,1,9,UPI,No,Yes,Monthly,Yes,4,-18,Yes,Sent,20% bill discount,No Response
+CUST0010,919876540010,Kerala,Kochi,26,Female,22,Postpaid,5G,899,94.4,540,1,0,1,0,0,Credit Card,Yes,Yes,Annual,No,8,36,No,Sent,Family add-on discount,Accepted
+CUST0011,919876540011,Maharashtra,Pune,39,Male,4,Prepaid,4G,199,16.2,180,3,2,7,1,18,UPI,No,Yes,Monthly,Yes,3,-36,Yes,Sent,Extra 20GB data,Callback Requested
+CUST0012,919876540012,Karnataka,Mysuru,44,Female,31,Postpaid,4G,649,33.5,690,0,0,1,0,0,Debit Card,Yes,No,Annual,No,9,45,No,Not Sent,,No Response
+CUST0013,919876540013,Punjab,Amritsar,23,Male,6,Prepaid,4G,249,28.1,340,2,1,4,0,13,Wallet,No,Yes,Monthly,Yes,5,-8,Yes,Sent,Extra 10GB data,Accepted
+CUST0014,919876540014,Bihar,Patna,36,Male,16,Prepaid,4G,299,19.7,520,1,1,3,2,10,UPI,No,Yes,Monthly,No,6,2,No,Sent,Free weekend data,No Response
+CUST0015,919876540015,Haryana,Gurugram,30,Female,20,Postpaid,5G,1099,112.6,620,2,1,5,0,0,Credit Card,Yes,Yes,Monthly,Yes,5,-12,Yes,Sent,15% bill discount,Accepted
+CUST0016,919876540016,Odisha,Bhubaneswar,41,Male,38,Prepaid,4G,349,34.2,800,0,0,1,0,5,UPI,No,Yes,Monthly,No,8,29,No,Not Sent,,No Response
+CUST0017,919876540017,Madhya Pradesh,Indore,27,Female,8,Prepaid,4G,199,12.8,210,4,3,10,1,21,Wallet,No,Yes,Monthly,Yes,2,-55,Yes,Sent,Free 1 month plan,Callback Requested
+CUST0018,919876540018,Assam,Guwahati,34,Male,24,Postpaid,4G,549,29.0,610,1,0,2,0,0,Net Banking,Yes,Yes,Annual,No,7,22,No,Not Sent,,No Response
+CUST0019,919876540019,Jharkhand,Ranchi,48,Female,13,Prepaid,4G,249,20.5,430,2,1,4,1,12,UPI,No,No,Monthly,No,6,4,No,Not Sent,,No Response
+CUST0020,919876540020,Andhra Pradesh,Vijayawada,25,Male,3,Prepaid,5G,399,77.2,270,3,2,7,0,17,UPI,No,Yes,Monthly,Yes,4,-27,Yes,Sent,Extra 20GB data,Rejected
+CUST0021,919876540021,Maharashtra,Nagpur,55,Male,50,Postpaid,4G,799,41.4,920,0,0,1,0,0,Credit Card,Yes,Yes,Annual,No,9,50,No,Not Sent,,No Response
+CUST0022,919876540022,Tamil Nadu,Coimbatore,32,Female,15,Prepaid,4G,299,37.9,470,1,0,2,0,7,UPI,No,Yes,Monthly,No,7,16,No,Sent,Extra 10GB data,Accepted
+CUST0023,919876540023,Delhi,New Delhi,37,Male,10,Postpaid,5G,1199,130.5,710,3,2,8,1,0,Credit Card,No,Yes,Monthly,Yes,3,-44,Yes,Sent,25% bill discount,Callback Requested
+CUST0024,919876540024,Gujarat,Surat,29,Female,29,Prepaid,4G,349,45.0,560,0,0,1,0,3,UPI,No,Yes,Monthly,No,8,28,No,Not Sent,,No Response
+CUST0025,919876540025,Karnataka,Bengaluru,45,Male,12,Prepaid,5G,499,90.7,390,2,1,6,0,8,UPI,No,Yes,Monthly,Yes,5,-10,Yes,Sent,Extra 30GB data,Accepted
+CUST0026,919876540026,West Bengal,Kolkata,38,Female,33,Postpaid,4G,699,36.8,790,1,0,2,0,0,Debit Card,Yes,Yes,Annual,No,8,33,No,Not Sent,,No Response
+CUST0027,919876540027,Rajasthan,Udaipur,22,Male,2,Prepaid,4G,199,14.0,160,2,2,5,1,24,Wallet,No,Yes,Monthly,Yes,3,-38,Yes,Sent,Free weekend data,No Response
+CUST0028,919876540028,Telangana,Hyderabad,51,Female,41,Postpaid,5G,999,86.3,860,0,0,1,0,0,Net Banking,Yes,No,Annual,No,9,47,No,Not Sent,,No Response
+CUST0029,919876540029,Uttar Pradesh,Kanpur,40,Male,19,Prepaid,4G,299,24.5,570,1,1,4,2,14,UPI,No,Yes,Monthly,No,5,-2,No,Sent,10% recharge cashback,Accepted
+CUST0030,919876540030,Kerala,Thiruvananthapuram,27,Female,6,Prepaid,5G,399,82.9,300,4,3,9,0,16,UPI,No,Yes,Monthly,Yes,3,-46,Yes,Sent,Extra 20GB data,Callback Requested
+CUST0031,919876540031,Maharashtra,Mumbai,34,Male,26,Postpaid,5G,899,96.8,640,1,0,3,0,0,Credit Card,Yes,Yes,Annual,No,8,35,No,Sent,Family add-on discount,Accepted
+CUST0032,919876540032,Tamil Nadu,Madurai,43,Female,17,Prepaid,4G,249,21.6,510,2,1,5,1,12,UPI,No,Yes,Monthly,Yes,5,-11,Yes,Sent,Extra 10GB data,Rejected
+CUST0033,919876540033,Punjab,Ludhiana,31,Male,23,Postpaid,4G,599,31.2,730,0,0,1,0,0,Debit Card,Yes,Yes,Annual,No,8,27,No,Not Sent,,No Response
+CUST0034,919876540034,Bihar,Gaya,28,Female,9,Prepaid,4G,199,11.4,260,3,2,7,2,19,Wallet,No,No,Monthly,Yes,2,-49,Yes,Not Sent,,No Response
+CUST0035,919876540035,Haryana,Faridabad,36,Male,34,Prepaid,5G,449,72.5,680,1,0,2,0,4,UPI,No,Yes,Monthly,No,8,24,No,Not Sent,,No Response
+CUST0036,919876540036,Odisha,Cuttack,46,Female,28,Postpaid,4G,549,27.6,820,0,0,1,0,0,Net Banking,Yes,Yes,Annual,No,9,42,No,Not Sent,,No Response
+CUST0037,919876540037,Madhya Pradesh,Bhopal,24,Male,5,Prepaid,4G,249,25.0,280,4,3,8,1,20,UPI,No,Yes,Monthly,Yes,3,-40,Yes,Sent,Free 1 month plan,Accepted
+CUST0038,919876540038,Assam,Dibrugarh,53,Male,45,Postpaid,4G,649,35.1,900,1,0,2,0,0,Debit Card,Yes,No,Annual,No,8,30,No,Not Sent,,No Response
+CUST0039,919876540039,Jharkhand,Jamshedpur,30,Female,14,Prepaid,4G,299,33.7,440,2,1,4,0,9,UPI,No,Yes,Monthly,No,6,8,No,Sent,Extra 10GB data,Accepted
+CUST0040,919876540040,Andhra Pradesh,Visakhapatnam,39,Male,7,Postpaid,5G,999,107.4,520,3,2,7,1,0,Credit Card,No,Yes,Monthly,Yes,4,-31,Yes,Sent,20% bill discount,Callback Requested
+CUST0041,919876540041,Maharashtra,Pune,33,Female,21,Prepaid,5G,499,80.2,610,0,0,2,0,5,UPI,No,Yes,Monthly,No,8,26,No,Not Sent,,No Response
+CUST0042,919876540042,Karnataka,Mangaluru,49,Male,40,Postpaid,4G,749,39.9,880,0,0,1,0,0,Net Banking,Yes,Yes,Annual,No,9,44,No,Not Sent,,No Response
+CUST0043,919876540043,Delhi,New Delhi,26,Female,4,Prepaid,4G,199,15.8,190,3,2,6,1,22,Wallet,No,Yes,Monthly,Yes,3,-43,Yes,Sent,Extra 20GB data,No Response
+CUST0044,919876540044,Telangana,Warangal,37,Male,18,Prepaid,4G,349,40.3,580,1,1,3,0,6,UPI,No,Yes,Monthly,No,7,14,No,Sent,10% recharge cashback,Accepted
+CUST0045,919876540045,Gujarat,Vadodara,56,Female,52,Postpaid,4G,699,32.4,940,0,0,0,0,0,Debit Card,Yes,No,Annual,No,9,56,No,Not Sent,,No Response
+CUST0046,919876540046,West Bengal,Siliguri,25,Male,8,Prepaid,4G,249,20.1,320,4,3,10,2,23,UPI,No,Yes,Monthly,Yes,2,-58,Yes,Sent,Free 1 month plan,Rejected
+CUST0047,919876540047,Rajasthan,Jodhpur,41,Female,25,Postpaid,4G,599,30.7,760,1,0,2,0,0,Net Banking,Yes,Yes,Annual,No,8,32,No,Not Sent,,No Response
+CUST0048,919876540048,Uttar Pradesh,Varanasi,29,Male,12,Prepaid,4G,299,27.8,410,2,1,5,1,13,UPI,No,Yes,Monthly,Yes,5,-13,Yes,Sent,Extra 10GB data,Accepted
+CUST0049,919876540049,Kerala,Kozhikode,35,Female,30,Postpaid,5G,899,89.7,700,0,0,1,0,0,Credit Card,Yes,Yes,Annual,No,9,40,No,Sent,Family add-on discount,Accepted
+CUST0050,919876540050,Odisha,Rourkela,32,Male,6,Prepaid,4G,199,13.5,240,3,2,8,1,18,Wallet,No,No,Monthly,Yes,3,-35,Yes,Not Sent,,No Response

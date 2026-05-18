@@ -1,0 +1,14 @@
+{
+  "name": "telecom-churn-retention-app",
+  "version": "1.0.0",
+  "description": "Telecom customer churn prediction and retention workflow app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["churn", "machine-learning", "telecom", "logistic-regression"],
+  "license": "MIT"
+}

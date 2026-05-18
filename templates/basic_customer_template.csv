@@ -1,0 +1,3 @@
+customer_id,phone_number,tenure_months,plan_type,monthly_charge_inr,support_tickets_90d,complaints_90d,churned
+CUST1001,919900001001,12,Prepaid,299,1,0,No
+CUST1002,919900001002,5,Postpaid,799,3,2,Yes

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RetainIQ Telecom Churn Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">R</span>
+          <div>
+            <strong>RetainIQ</strong>
+            <span>Telecom Churn Studio</span>
+          </div>
+        </div>
+        <nav class="steps" aria-label="Workflow">
+          <a href="#upload" class="active">Upload</a>
+          <a href="#mapping">Map</a>
+          <a href="#quality">Quality</a>
+          <a href="#model">Model</a>
+          <a href="#automation">Automation</a>
+        </nav>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>Find churn risk, explain it, and trigger retention workflows.</h1>
+          </div>
+          <button id="loadDemoBtn" class="secondary" type="button">Load Indian demo data</button>
+        </header>
+
+        <section id="upload" class="panel upload-panel">
+          <div>
+            <h2>Upload Dataset</h2>
+            <p>Start with one customer-level CSV. The app will infer column mappings and train on the columns you approve.</p>
+          </div>
+          <label class="dropzone">
+            <input id="csvInput" type="file" accept=".csv,text/csv" />
+            <span>Choose CSV file</span>
+            <small>Required for training: customer id, churn label, and at least two behavior or billing columns.</small>
+          </label>
+        </section>
+
+        <section class="metrics" aria-label="Dataset summary">
+          <article>
+            <span>Rows</span>
+            <strong id="rowCount">0</strong>
+          </article>
+          <article>
+            <span>Columns</span>
+            <strong id="columnCount">0</strong>
+          </article>
+          <article>
+            <span>Valid Training Rows</span>
+            <strong id="validCount">0</strong>
+          </article>
+          <article>
+            <span>Model Status</span>
+            <strong id="modelStatus">Waiting</strong>
+          </article>
+        </section>
+
+        <section id="mapping" class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Column Mapping</h2>
+              <p>Translate each company's raw CSV into RetainIQ's internal churn schema.</p>
+            </div>
+            <button id="applyMappingBtn" type="button">Apply Mapping</button>
+          </div>
+          <div id="mappingGrid" class="mapping-grid"></div>
+        </section>
+
+        <section id="quality" class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Data Quality</h2>
+              <p>Catch risky uploads before training so the owner knows what the model can and cannot trust.</p>
+            </div>
+          </div>
+          <div id="qualityList" class="quality-list"></div>
+        </section>
+
+        <section id="model" class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Churn Model</h2>
+              <p>A local logistic model trains in the browser and scores every mapped customer.</p>
+            </div>
+            <button id="trainBtn" type="button">Train & Score</button>
+          </div>
+          <div class="model-grid">
+            <article class="model-card">
+              <span>Accuracy</span>
+              <strong id="accuracy">-</strong>
+            </article>
+            <article class="model-card">
+              <span>Recall</span>
+              <strong id="recall">-</strong>
+            </article>
+            <article class="model-card">
+              <span>High Risk Customers</span>
+              <strong id="highRiskCount">-</strong>
+            </article>
+            <article class="model-card">
+              <span>Revenue At Risk</span>
+              <strong id="revenueAtRisk">-</strong>
+            </article>
+          </div>
+          <div class="dashboard">
+            <div>
+              <h3>Risk Distribution</h3>
+              <div id="riskBars" class="bars"></div>
+            </div>
+            <div>
+              <h3>Top Risk Drivers</h3>
+              <div id="driversList" class="drivers"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Danger Zone Customers</h2>
+              <p>Prioritize customers with high churn probability and explainable intervention reasons.</p>
+            </div>
+            <button id="downloadBtn" class="secondary" type="button">Download danger zone CSV</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Phone</th>
+                  <th>Risk</th>
+                  <th>Level</th>
+                  <th>Reason</th>
+                  <th>Suggested Offer</th>
+                </tr>
+              </thead>
+              <tbody id="customerRows">
+                <tr>
+                  <td colspan="6" class="empty">Upload data and train the model to see customer risk.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="automation" class="panel">
+          <div class="section-head">
+            <div>
+              <h2>n8n Automation Handoff</h2>
+              <p>Send high-risk customers to an n8n webhook for WhatsApp, SMS, CRM, or customer-care escalation.</p>
+            </div>
+          </div>
+          <div class="automation-grid">
+            <label>
+              n8n Webhook URL
+              <input id="webhookUrl" type="url" placeholder="https://your-n8n/webhook/telecom-retention" />
+            </label>
+            <label>
+              Risk threshold
+              <input id="riskThreshold" type="number" min="0" max="100" value="70" />
+            </label>
+            <label>
+              Channel
+              <select id="channel">
+                <option>WhatsApp</option>
+                <option>SMS</option>
+                <option>Email</option>
+                <option>Customer-care call</option>
+              </select>
+            </label>
+            <button id="sendWebhookBtn" type="button">Send Test Payload</button>
+          </div>
+          <pre id="payloadPreview" class="payload">{}</pre>
+        </section>
+      </section>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>
