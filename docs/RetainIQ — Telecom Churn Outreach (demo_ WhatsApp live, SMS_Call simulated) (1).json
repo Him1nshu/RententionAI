@@ -1,0 +1,488 @@
+{
+  "name": "RetainIQ — Telecom Churn Outreach (demo: WhatsApp live, SMS/Call simulated)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "telecom-retention",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "0269b500-5fdd-4bcc-9011-1416f4926636",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -784,
+        224
+      ],
+      "webhookId": "telecom-retention"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"ok\", \"received\": $json.body.customers ? $json.body.customers.length : 0 } }}",
+        "options": {}
+      },
+      "id": "46b7df58-29b0-49e3-b1c3-53008cb63a1e",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Webhook body: { channel, threshold_percent, customers: [...] }\nconst body = $input.first().json.body || $input.first().json;\nconst channel = body.channel || 'SMS';\nconst customers = Array.isArray(body.customers) ? body.customers : [];\n\nreturn customers.map((c) => {\n  // phone_number in sample data already includes the 91 country code.\n  // Strip a leading 91 so the Twilio nodes can safely prefix +91.\n  let phone = String(c.phone_number || '').replace(/\\D/g, '');\n// Ensure it has country code — if 10 digits add 91, if already has 91 keep it\nif (phone.length === 10) phone = '91' + phone;\n// Final format with +\nphone = '+' + phone;\n  return {\n    json: {\n      channel,\n      customer_id: c.customer_id,\n      phone_number: phone,\n      city: c.city || '',\n      state: c.state || '',\n      risk_score: c.risk_score,\n      risk_level: c.risk_level,\n      reasons: Array.isArray(c.reasons) ? c.reasons : [],\n      suggested_offer: c.suggested_offer || '',\n    }\n  };\n});"
+      },
+      "id": "271360de-7263-40bc-9286-d44682326d4b",
+      "name": "Split Customers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        224
+      ],
+      "notes": "Unwraps customers[], copies batch-level 'channel' onto each item, and normalizes phone_number (strips a leading 91 so +91 prefixing is correct)."
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.channel }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "WhatsApp"
+            },
+            {
+              "value2": "SMS",
+              "output": 1
+            },
+            {
+              "value2": "Call",
+              "output": 2
+            }
+          ]
+        },
+        "fallbackOutput": 0
+      },
+      "id": "d74935e1-41b1-46a0-b895-81ea864c888a",
+      "name": "Switch Channel",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        224
+      ],
+      "notes": "Routes on the batch-level 'channel'. Fallback -> WhatsApp (the live channel) so a demo run never dead-ends."
+    },
+    {
+      "parameters": {
+        "from": "+14155238886",
+        "to": "={{ $json.phone_number }}",
+        "toWhatsapp": true,
+        "message": "=Hi {{ $json.customer_id }}! 👋\n\n⚠️ Risk Level: {{ $json.risk_level }} ({{ $json.risk_score }}% churn risk)\n\n📋 Why we're reaching out:\n{{ $json.reasons.join(', ') }}\n\n🎁 Our offer for you: {{ $json.suggested_offer }}\n\nReply *YES* to accept or call *1800-XXX-XXXX*.\n— Your Telecom Team",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4c0ed5cd-9d5a-4702-ba82-1cd1709b87de",
+      "name": "Send WhatsApp message(Twilio)",
+      "credentials": {
+        "twilioApi": {
+          "id": "tSEG6JHj3ouQ7PVS",
+          "name": "Twilio account"
+        }
+      },
+      "notes": "LIVE. Twilio WhatsApp sandbox. Recipient must send the sandbox join code to +14155238886 first (valid 72h)."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "w1",
+              "name": "customer_id",
+              "value": "={{ $('Split Customers').item.json.customer_id }}",
+              "type": "string"
+            },
+            {
+              "id": "w2",
+              "name": "phone_number",
+              "value": "={{ $('Split Customers').item.json.phone_number }}",
+              "type": "string"
+            },
+            {
+              "id": "w3",
+              "name": "city",
+              "value": "={{ $('Split Customers').item.json.city }}",
+              "type": "string"
+            },
+            {
+              "id": "w4",
+              "name": "state",
+              "value": "={{ $('Split Customers').item.json.state }}",
+              "type": "string"
+            },
+            {
+              "id": "w5",
+              "name": "risk_score",
+              "value": "={{ $('Split Customers').item.json.risk_score }}",
+              "type": "string"
+            },
+            {
+              "id": "w6",
+              "name": "risk_level",
+              "value": "={{ $('Split Customers').item.json.risk_level }}",
+              "type": "string"
+            },
+            {
+              "id": "w7",
+              "name": "reasons",
+              "value": "={{ $('Split Customers').item.json.reasons.join('; ') }}",
+              "type": "string"
+            },
+            {
+              "id": "w8",
+              "name": "suggested_offer",
+              "value": "={{ $('Split Customers').item.json.suggested_offer }}",
+              "type": "string"
+            },
+            {
+              "id": "w9",
+              "name": "channel",
+              "value": "WhatsApp",
+              "type": "string"
+            },
+            {
+              "id": "w10",
+              "name": "status",
+              "value": "sent",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "67063ed2-40d4-44d9-aa0c-27fb07cedd0a",
+      "name": "Tag WhatsApp (sent)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "s1",
+              "name": "customer_id",
+              "value": "={{ $json.customer_id }}",
+              "type": "string"
+            },
+            {
+              "id": "s2",
+              "name": "phone_number",
+              "value": "={{ $json.phone_number }}",
+              "type": "string"
+            },
+            {
+              "id": "s3",
+              "name": "city",
+              "value": "={{ $json.city }}",
+              "type": "string"
+            },
+            {
+              "id": "s4",
+              "name": "state",
+              "value": "={{ $json.state }}",
+              "type": "string"
+            },
+            {
+              "id": "s5",
+              "name": "risk_score",
+              "value": "={{ $json.risk_score }}",
+              "type": "string"
+            },
+            {
+              "id": "s6",
+              "name": "risk_level",
+              "value": "={{ $json.risk_level }}",
+              "type": "string"
+            },
+            {
+              "id": "s7",
+              "name": "reasons",
+              "value": "={{ $json.reasons.join('; ') }}",
+              "type": "string"
+            },
+            {
+              "id": "s8",
+              "name": "suggested_offer",
+              "value": "={{ $json.suggested_offer }}",
+              "type": "string"
+            },
+            {
+              "id": "s9",
+              "name": "channel",
+              "value": "SMS",
+              "type": "string"
+            },
+            {
+              "id": "s10",
+              "name": "status",
+              "value": "simulated (India DLT not registered)",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5aa24f73-699d-4eb1-aedd-04a96358a4c0",
+      "name": "Simulate SMS",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        224
+      ],
+      "notes": "SIMULATED. Real A2P SMS to +91 needs TRAI DLT registration (Entity ID + approved header + approved template). Logged as simulated."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1",
+              "name": "customer_id",
+              "value": "={{ $json.customer_id }}",
+              "type": "string"
+            },
+            {
+              "id": "c2",
+              "name": "phone_number",
+              "value": "={{ $json.phone_number }}",
+              "type": "string"
+            },
+            {
+              "id": "c3",
+              "name": "city",
+              "value": "={{ $json.city }}",
+              "type": "string"
+            },
+            {
+              "id": "c4",
+              "name": "state",
+              "value": "={{ $json.state }}",
+              "type": "string"
+            },
+            {
+              "id": "c5",
+              "name": "risk_score",
+              "value": "={{ $json.risk_score }}",
+              "type": "string"
+            },
+            {
+              "id": "c6",
+              "name": "risk_level",
+              "value": "={{ $json.risk_level }}",
+              "type": "string"
+            },
+            {
+              "id": "c7",
+              "name": "reasons",
+              "value": "={{ $json.reasons.join('; ') }}",
+              "type": "string"
+            },
+            {
+              "id": "c8",
+              "name": "suggested_offer",
+              "value": "={{ $json.suggested_offer }}",
+              "type": "string"
+            },
+            {
+              "id": "c9",
+              "name": "channel",
+              "value": "Call",
+              "type": "string"
+            },
+            {
+              "id": "c10",
+              "name": "status",
+              "value": "simulated (voice disabled on trial)",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ffead969-cb85-4eee-8cbe-1f6d43f1bf25",
+      "name": "Simulate Call",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        448
+      ],
+      "notes": "SIMULATED. Voice on a Twilio trial is verified-number-only with a trial preamble and limited minutes. Logged as simulated; enable a real Voice node after upgrade."
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1qEDSwnm1KrSIR2v9ojTuXM2xSNgIfm_wQEx6uw-PMiI",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "id": "7de791f5-7521-447d-ac10-2b41f5485835",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        608,
+        224
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DsAT0f4cz7EDz7SL",
+          "name": "Google Sheets OAuth2 API"
+        }
+      },
+      "notes": "Header row should be: customer_id, phone_number, city, state, risk_score, risk_level, reasons, suggested_offer, channel, status"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Customers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Customers": {
+      "main": [
+        [
+          {
+            "node": "Switch Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Channel": {
+      "main": [
+        [
+          {
+            "node": "Send WhatsApp message(Twilio)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Simulate SMS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Simulate Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send WhatsApp message(Twilio)": {
+      "main": [
+        [
+          {
+            "node": "Tag WhatsApp (sent)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tag WhatsApp (sent)": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simulate SMS": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simulate Call": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d8811c4b-546f-4c22-88f4-f0db0fe277ff",
+  "meta": {
+    "instanceId": "b86f06082f0ee66852be62221584f6d36dd9b0b82dcf62bf7aafceddc9610fad"
+  },
+  "id": "g4vEoBVaiIyFfbai",
+  "tags": []
+}
